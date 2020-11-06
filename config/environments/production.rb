@@ -110,7 +110,7 @@ Rails.application.configure do
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
-  config.action_mailer.default_url_options = { host: 'sheltered-ocean-05590.herokuapp.com' }
+  config.action_mailer.default_url_options = { host: 'aqueous-brook-64834.herokuapp.com' }
     ActionMailer::Base.delivery_method = :smtp
     ActionMailer::Base.smtp_settings = {
       user_name: ENV['SENDGRID_USERNAME'],
