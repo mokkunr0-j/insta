@@ -1,0 +1,12 @@
+nav.head.navbar.bg-light.border
+  .container
+    .row
+      .col-sm-1
+        h2.title instaclone
+    .row
+      .icon
+        = link_to image_tag('camera.png', class:'header-img'), new_picture_path
+        = link_to image_tag('momo.png', class:'header-img'), pictures_path
+        = link_to image_tag('heart2.png', class:'header-img'), favorites_path
+        = link_to image_tag('person.png', class:'header-img'), user_path(current_user.id)
+        = link_to image_tag('logout.png', class:'header-img'), session_path(current_user.id), method: :delete, data: { confirm: 'ログアウトしますか？' }

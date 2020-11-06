@@ -1,0 +1,96 @@
+= render 'header'
+
+.container
+
+  .row.justify-content-center
+
+    - if notice == nil
+
+      p
+    - else
+
+      .alert.alert-primary.index_alert = notice
+
+.container.big_container
+
+  - if current_user == nil
+
+    .row
+      .col-lg-5.offset-lg-6.offset-md-7.user_info.index_prof
+
+        .row
+
+          form.login_form
+            p あなたも始めませんか？
+            .w-100
+            = link_to 'アカウント作成画面へ', new_user_path
+
+    - @pictures.each do |pic|
+      .index_container.col-lg-8.border
+        .row.border-bottom.post_user
+          - if pic.user.user_image.url == nil
+            = image_tag 'person.png', class:'index_icon'
+          - else
+            = image_tag pic.user.user_image.url, class:'index_icon'
+
+          h5.col-md-9.col-sm-8.upuser_name #{pic.user.name}
+        = image_tag pic.image.url, class:'index_img border-bottom'
+
+        .row.border-top.index_comment
+          = pic.content
+
+  - else
+
+    .row
+      .col-lg-5.offset-lg-6.offset-md-7.user_info.index_prof
+
+        .row
+
+          - if current_user.user_image.url == nil
+
+            = image_tag 'person.png', class:'col-lg-2 index_prof_img'
+
+          - else
+
+            = image_tag current_user.user_image.url, class:'col-lg-2 index_prof_img'
+
+
+          h5.col-lg-4.user_name #{current_user.name}
+
+          = link_to '編集する', edit_user_path(id: current_user.id), class: "btn btn-light col-sm-6 col-md-4 col-lg-2 prof_edit_btn border border-dark"
+
+          p.col-lg-8.index_prof_content #{current_user.profile}
+
+
+    - @pictures.each_with_index do |pic,idx|
+      - fav = Favorite.find_by(user_id: current_user.id, picture_id: pic.id)
+      .index_container.col-lg-8.border
+        .row.border-bottom.post_user
+          - if pic.user.user_image.url == nil
+            = image_tag 'person.png', class:'index_icon'
+          - else
+            = image_tag pic.user.user_image.url, class:'index_icon'
+
+          h5.col-md-9.col-sm-8.upuser_name #{pic.user.name}
+        = image_tag pic.image.url, class:'index_img border-bottom'
+
+        li
+          - if current_user.id == pic.user_id
+            - if fav == nil
+              = link_to image_tag('heart2.png', class:'header-img'),favorites_path(picture_id: pic.id), method: :post
+            - else
+              = link_to image_tag('heart1.png', class:'header-img'), favorite_path(id: fav.id),  :method => :delete
+            =link_to image_tag('edit.png', class:'header-img'), edit_picture_path(pic.id)
+            =link_to image_tag('del.png', class:'header-img'), picture_path(pic.id),  :method => :delete ,data: { confirm: '本当に削除していいですか？' }
+          - else
+            -if fav == nil
+              = link_to image_tag('heart2.png', class:'header-img'),favorites_path(picture_id: pic.id), method: :post
+            -else
+              = link_to image_tag('heart1.png', class:'header-img'), favorite_path(id: fav.id),  :method => :delete
+
+        .row.border-top.index_comment
+          = pic.content
+
+
+
+= render 'footer'

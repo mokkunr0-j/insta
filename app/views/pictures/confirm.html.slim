@@ -1,0 +1,25 @@
+= render 'header'
+
+.container
+
+  p 確認
+
+  .index_container.big_container
+
+    = form_with(model: @picture, local: true) do |f|
+      = f.hidden_field :image_cache
+      = f.hidden_field :content
+
+      div.row
+
+        = image_tag @picture.image.url, class:'col-xs-1 col-md-12'
+
+        p.col-xs-12.col-md-12 = @picture.content
+
+          | = @picture.content
+
+
+      = f.submit  "送信", class: "btn btn-success"
+      = f.submit  "戻る", name: 'back', class: "btn btn-info"
+
+  = render 'footer'

@@ -1,0 +1,47 @@
+.container
+  - if notice == nil
+
+    p
+  - else
+
+    .row.justify-content-center
+      .alert.alert-primary.session_alert = notice
+
+  - if flash[:danger] == nil
+
+    p
+  - else
+
+    .row.justify-content-center
+      .alert.alert-warning.session_alert = flash[:danger]
+
+  .row.justify-content-center
+    .col-lg-6.col-sm-8
+      = image_tag 'loginyou.jpg', class:'login_image'
+
+    .form-wrapper.col-md-12
+      h1.title
+        | instaclone
+      form.login_form
+      = form_with(scope: :session, url: sessions_path, local: true) do |f|
+        .form-item
+          = f.email_field :email, placeholder: 'email'
+
+        .form-item
+          = f.password_field :password, placeholder: 'password'
+
+        .button-panel
+          input.button[type="submit" title="Sign In" value="ログイン"]
+
+
+    .form-wrapper.signup.col-md-12
+      form
+        p アカウントをお持ちでないですか？
+        = link_to '登録する', new_user_path
+        .w-100
+        = link_to 'みんなの投稿を見る', pictures_path
+
+
+footer.container
+
+  p.row.justify-content-end made by Jun Yamada

@@ -1,0 +1,36 @@
+.container
+
+  - if @user.errors.any?
+    .row.justify-content-center
+      .alert.alert-danger.alert_signup.col-lg-3
+        ul
+        - @user.errors.full_messages.each do |message|
+          li.error_explanation = message
+
+  .row.justify-content-center
+    .form-wrapper.col-sm-12
+      h3.title instaclone
+      = form_with(model: @user, local: true) do |f|
+
+        .form-item
+          = f.text_field :name, placeholder: 'name'
+
+        .form-item
+          = f.email_field :email, placeholder: 'email'
+
+        .form-item
+          = f.password_field :password, placeholder: 'password'
+
+        .form-item
+          = f.password_field :password_confirmation, placeholder: 'password_confirmation'
+
+        .button-panel
+          input.button[type="submit" title="signup" value="登録"]
+
+  .row.justify-content-center
+    .form-wrapper.signup.col-sm-12
+      form
+        p アカウントを持っている方は
+        =link_to 'ログイン', new_session_path
+
+= render 'footer'

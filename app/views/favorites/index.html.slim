@@ -1,0 +1,37 @@
+nav.head.navbar.bg-light.border
+  .container
+    .row
+      .col-xs-1
+        h2.title instaclone
+    .row
+      .icon
+        = link_to image_tag('camera.png', class:'header-img'), new_picture_path
+        = link_to image_tag('momo.png', class:'header-img'), pictures_path
+        = link_to image_tag('heart2.png', class:'header-img'), favorites_path
+        = link_to image_tag('person.png', class:'header-img'), user_path(current_user.id)
+        = link_to image_tag('logout.png', class:'header-img'), session_path(current_user.id), method: :delete, data: { confirm: 'ログアウトしますか？' }
+
+
+.container
+
+  .big_container
+
+    h4.fav_title #{@current_user.name}さんのお気に入り一覧
+
+    .row
+
+      - @user_favorites.each do |favorite|
+
+        .col-lg-4.col-md-4.col-xs-4
+
+          .row
+
+            = image_tag favorite.picture.image.url ,class:'col-sm-12'
+
+          .row
+            = link_to image_tag('heart1.png', class:'fav_mark'), favorite_path(id: favorite.id), :method => :delete, data: { confirm: '本当にお気に入り解除していいですか？' }
+
+
+footer.container
+
+  p.row.justify-content-end made by Jun Yamada

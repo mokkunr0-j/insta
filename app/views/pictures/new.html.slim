@@ -1,0 +1,24 @@
+= render 'header'
+
+.container
+  .container.border.new_form_container.big_container
+    h4.title post
+    .row.justify-content-center
+      = form_with(model: @picture, local: true, url:confirm_pictures_path) do |f|
+
+        - if @picture.errors.any?
+          div#error_explanation
+            p
+              ul
+              - @picture.errors.full_messages.each do |msg|
+                li.alert.alert-warning.post_error = msg
+
+        .field
+          = f.file_field :image
+
+        .insta
+          = f.text_area :content , class: 'textarea'
+
+        = f.submit '確認', class: 'btn btn-secondary'
+
+  = render 'footer'
