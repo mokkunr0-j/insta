@@ -13,11 +13,15 @@ class PicturesController < ApplicationController
     if params[:back]
       render :new
     else
-      if @picture.save
-        PictureMailer.picture_mail(@picture).deliver
-        redirect_to pictures_path , notice: '投稿しました'
-      else
-        render :new
+      respond_to do |format|
+        if @picture.save
+          PictureMailer.picture_mail(@picture).deliver
+          format.html { redirect_to pictures_path, notice: '投稿しました' }
+          format.json { render :show, status: :created, location: @picture }
+        else
+          format.html { render :new }
+          format.json { render json: @picture.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
